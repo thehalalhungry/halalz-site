@@ -4,41 +4,233 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Halalz — Find Halal Food You Can Trust</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; line-height: 1.6; }
-    .hero { background: linear-gradient(135deg, #2E7D32, #43A047); color: white; padding: 80px 20px; text-align: center; }
-    .hero h1 { font-size: 3rem; margin-bottom: 8px; }
-    .hero p { font-size: 1.3rem; opacity: 0.9; }
-    .content { max-width: 680px; margin: 0 auto; padding: 40px 20px; }
-    .content h2 { margin-top: 32px; margin-bottom: 12px; color: #2E7D32; }
-    .content p, .content li { margin-bottom: 12px; }
-    .content ul { padding-left: 20px; }
-    .links { text-align: center; padding: 40px 20px; }
-    .links a { display: inline-block; margin: 8px 16px; color: #2E7D32; text-decoration: none; font-weight: 600; }
-    .links a:hover { text-decoration: underline; }
-    footer { text-align: center; padding: 24px; color: #888; font-size: 0.85rem; }
+    body { font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif; color: #141410; line-height: 1.6; background: #FAF8F4; }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(160deg, #1B5E20 0%, #2E7D32 40%, #1B5E20 100%);
+      color: white;
+      padding: 80px 20px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -20%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .icon {
+      width: 88px;
+      height: 88px;
+      border-radius: 22px;
+      margin: 0 auto 24px;
+      background: #1B5E20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 1;
+    }
+    .icon svg { width: 88px; height: 88px; }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 span { color: #C8A84B; }
+    .hero .tagline {
+      font-size: 1.15rem;
+      opacity: 0.85;
+      font-weight: 400;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Badge row */
+    .badges {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      backdrop-filter: blur(8px);
+    }
+    .badge.certified { background: rgba(255,255,255,0.18); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+    .badge.community { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.15); }
+    .badge.stated { background: rgba(200,168,75,0.15); color: #C8A84B; border: 1px solid rgba(200,168,75,0.3); }
+
+    /* Features */
+    .features {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 56px 20px 40px;
+    }
+    .features h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #141410;
+      margin-bottom: 32px;
+      text-align: center;
+      letter-spacing: -0.01em;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 520px) { .feature-grid { grid-template-columns: 1fr; } }
+    .feature-card {
+      background: #F0EDE6;
+      border: 0.5px solid #D8D4CC;
+      border-radius: 14px;
+      padding: 20px;
+    }
+    .feature-card .emoji { font-size: 28px; margin-bottom: 10px; }
+    .feature-card h3 { font-size: 14px; font-weight: 600; color: #141410; margin-bottom: 4px; }
+    .feature-card p { font-size: 13px; color: #6B6B66; line-height: 1.5; }
+
+    /* CTA */
+    .cta {
+      text-align: center;
+      padding: 20px 20px 56px;
+    }
+    .cta p {
+      font-size: 14px;
+      color: #6B6B66;
+      margin-bottom: 16px;
+    }
+    .cta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #2E7D32;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 24px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.15s ease;
+    }
+    .cta-badge:hover { background: #256929; }
+
+    /* Footer */
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      padding: 20px;
+      border-top: 0.5px solid #D8D4CC;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: #6B6B66;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .footer-links a:hover { color: #2E7D32; }
+    footer {
+      text-align: center;
+      padding: 12px 20px 24px;
+      font-size: 12px;
+      color: #A0A09A;
+    }
   </style>
 </head>
 <body>
   <div class="hero">
-    <h1>Halalz</h1>
-    <p>Find It. Trust It. Eat It.</p>
+    <div class="icon">
+      <svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="88" height="88" rx="22" fill="#1B5E20"/>
+        <rect width="88" height="88" rx="22" fill="url(#g)" opacity="0.5"/>
+        <text x="44" y="54" text-anchor="middle" font-family="DM Sans, system-ui, sans-serif" font-weight="600" font-size="40" fill="white">H</text>
+        <rect x="22" y="63" width="44" height="6" rx="3" fill="#C8A84B"/>
+        <defs><radialGradient id="g" cx="0.3" cy="0.2" r="0.8"><stop stop-color="white" stop-opacity="0.08"/><stop offset="1" stop-color="white" stop-opacity="0"/></radialGradient></defs>
+      </svg>
+    </div>
+    <h1>Halalz<span>.</span></h1>
+    <p class="tagline">Find It. Trust It. Eat It.</p>
+    <div class="badges">
+      <span class="badge certified">&#10003; Certified</span>
+      <span class="badge community">&#9678; Community</span>
+      <span class="badge stated">&#9675; Self-stated</span>
+    </div>
   </div>
-  <div class="links">
+
+  <div class="features">
+    <h2>Discover halal food you can trust</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="emoji">&#x1F5FA;</div>
+        <h3>Confidence Map</h3>
+        <p>Color-coded pins show halal certification level at a glance. Green for certified, grey for community verified.</p>
+      </div>
+      <div class="feature-card">
+        <div class="emoji">&#x1F3AC;</div>
+        <h3>Food Reels</h3>
+        <p>Watch short videos of real dishes at real restaurants. Share your own food moments with the community.</p>
+      </div>
+      <div class="feature-card">
+        <div class="emoji">&#x2B50;</div>
+        <h3>Reviews & Ratings</h3>
+        <p>Read community reviews from people who care about halal as much as you do. Rate and review places you visit.</p>
+      </div>
+      <div class="feature-card">
+        <div class="emoji">&#x1F4CB;</div>
+        <h3>Custom Lists</h3>
+        <p>Save restaurants to personal lists. Build your go-to spots, date night picks, or travel wishlist.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <p>Available in Boston and Providence. More cities coming soon.</p>
+    <a class="cta-badge" href="mailto:thehalalhungry@gmail.com">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4l6 4 6-4" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="1" y="3" width="14" height="10" rx="2" stroke="white" stroke-width="1.2"/></svg>
+      Get in touch
+    </a>
+  </div>
+
+  <div class="footer-links">
     <a href="privacy.html">Privacy Policy</a>
     <a href="mailto:thehalalhungry@gmail.com">Support</a>
-  </div>
-  <div class="content">
-    <h2>Discover Halal Food You Can Trust</h2>
-    <p>Halalz helps you find halal restaurants with a clear four-tier trust system: Certified, Community Verified, Self-Stated, and Unverified.</p>
-    <ul>
-      <li>Interactive map with color-coded halal confidence pins</li>
-      <li>Food reels from the community</li>
-      <li>Reviews, photos, and community voting</li>
-      <li>Save restaurants to custom lists</li>
-    </ul>
-    <p>Available in Boston and Providence.</p>
   </div>
   <footer>&copy; 2026 Halalz. All rights reserved.</footer>
 </body>

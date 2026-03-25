@@ -4,28 +4,127 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy — Halalz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; line-height: 1.7; }
-    header { background: #2E7D32; color: white; padding: 40px 20px; text-align: center; }
-    header h1 { font-size: 1.8rem; }
-    header a { color: white; text-decoration: underline; }
-    .content { max-width: 680px; margin: 0 auto; padding: 40px 20px; }
-    h2 { margin-top: 28px; margin-bottom: 8px; color: #2E7D32; font-size: 1.2rem; }
-    p, li { margin-bottom: 10px; }
-    ul { padding-left: 20px; }
-    .updated { color: #888; font-size: 0.9rem; margin-bottom: 24px; }
-    footer { text-align: center; padding: 24px; color: #888; font-size: 0.85rem; }
+    body { font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif; color: #141410; line-height: 1.7; background: #FAF8F4; }
+
+    /* Nav */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 20px 20px 0;
+    }
+    nav a {
+      font-size: 13px;
+      color: #6B6B66;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    nav a:hover { color: #2E7D32; }
+    .nav-logo {
+      font-size: 18px;
+      font-weight: 600;
+      color: #141410;
+      text-decoration: none;
+    }
+    .nav-logo span { color: #C8A84B; }
+
+    /* Header */
+    header {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 20px 0;
+    }
+    header h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #141410;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .updated {
+      font-size: 13px;
+      color: #6B6B66;
+    }
+    .divider {
+      width: 40px;
+      height: 3px;
+      background: #2E7D32;
+      border-radius: 2px;
+      margin: 24px 0;
+    }
+
+    /* Content */
+    .content {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #141410;
+      margin-top: 32px;
+      margin-bottom: 8px;
+    }
+    h3 {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #141410;
+      margin-top: 20px;
+      margin-bottom: 6px;
+    }
+    p { margin-bottom: 12px; color: #3a3a36; font-size: 15px; }
+    li { margin-bottom: 8px; color: #3a3a36; font-size: 15px; }
+    ul { padding-left: 20px; margin-bottom: 12px; }
+    strong { color: #141410; }
+    a { color: #2E7D32; }
+    a:hover { text-decoration: none; }
+
+    /* Callout */
+    .callout {
+      background: #F0EDE6;
+      border: 0.5px solid #D8D4CC;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 24px 0;
+    }
+    .callout p { margin-bottom: 0; font-size: 14px; }
+
+    /* Footer */
+    footer {
+      max-width: 720px;
+      margin: 0 auto;
+      border-top: 0.5px solid #D8D4CC;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #A0A09A;
+    }
+    footer a { color: #6B6B66; text-decoration: none; font-weight: 500; font-size: 13px; }
+    footer a:hover { color: #2E7D32; }
   </style>
 </head>
 <body>
+  <nav>
+    <a class="nav-logo" href="index.html">Halalz<span>.</span></a>
+    <a href="mailto:thehalalhungry@gmail.com">Support</a>
+  </nav>
+
   <header>
     <h1>Privacy Policy</h1>
-    <p><a href="index.html">Halalz</a></p>
-  </header>
-  <div class="content">
     <p class="updated">Last updated: March 25, 2026</p>
+    <div class="divider"></div>
+  </header>
 
+  <div class="content">
     <h2>Overview</h2>
     <p>Halalz ("we", "our", "us") operates the Halalz mobile application. This Privacy Policy explains what information we collect, how we use it, and your choices.</p>
 
@@ -68,12 +167,9 @@
     </ul>
 
     <h2>Your Rights</h2>
-    <p>You can at any time:</p>
-    <ul>
-      <li><strong>View</strong> your data in the Profile tab</li>
-      <li><strong>Edit</strong> your profile name and photo</li>
-      <li><strong>Delete</strong> your account and all associated data from Profile &gt; Settings &gt; Delete Account</li>
-    </ul>
+    <div class="callout">
+      <p>You can <strong>view</strong> your data in the Profile tab, <strong>edit</strong> your profile at any time, and permanently <strong>delete</strong> your account and all associated data from Profile &gt; Settings &gt; Delete Account.</p>
+    </div>
     <p>Account deletion permanently removes your profile, reviews, reels, photos, lists, and all associated data.</p>
 
     <h2>Children's Privacy</h2>
@@ -83,9 +179,13 @@
     <p>We may update this Privacy Policy from time to time. We will notify you of changes by updating the "Last updated" date above.</p>
 
     <h2>Contact Us</h2>
-    <p>If you have questions about this Privacy Policy, contact us at:</p>
-    <p><strong>Email:</strong> <a href="mailto:thehalalhungry@gmail.com">thehalalhungry@gmail.com</a></p>
+    <p>If you have questions about this Privacy Policy, contact us at:<br>
+    <strong><a href="mailto:thehalalhungry@gmail.com">thehalalhungry@gmail.com</a></strong></p>
   </div>
-  <footer>&copy; 2026 Halalz. All rights reserved.</footer>
+
+  <footer>
+    <span>&copy; 2026 Halalz. All rights reserved.</span>
+    <a href="index.html">Back to home</a>
+  </footer>
 </body>
 </html>
