@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>View on Halalz — Halal Food Finder</title>
+  <meta name="description" content="Open this halal restaurant in the Halalz app — 2,700+ halal spots across the US & Canada with community-verified confidence.">
+
+  <!-- App deep linking (Universal Links / App Links) — installed app opens directly -->
+  <meta property="al:ios:app_store_id" content="6761310231">
+  <meta property="al:ios:app_name" content="Halalz">
+  <meta property="al:ios:url" content="halalz://">
+  <meta property="al:android:package" content="app.halalz">
+  <meta property="al:android:app_name" content="Halalz">
+  <meta property="al:android:url" content="halalz://">
+  <meta name="apple-itunes-app" content="app-id=6761310231">
+
+  <!-- Open Graph (generic Halalz preview — restaurant-specific OG needs server-side render, deferred) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Halalz">
+  <meta property="og:title" content="View on Halalz — Find Halal Food You Can Trust">
+  <meta property="og:description" content="2,700+ halal restaurants across the US & Canada with community-verified trust levels. Free on iOS and Android.">
+  <meta property="og:url" content="https://halalz.app/">
+  <meta property="og:image" content="https://halalz.app/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="View on Halalz — Find Halal Food You Can Trust">
+  <meta name="twitter:image" content="https://halalz.app/og-image.png">
+
+  <meta name="theme-color" content="#1B5E20">
+  <link rel="icon" type="image/png" href="https://halalz.app/og-image.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #141410; line-height: 1.5; background: #FAF8F4;
+      -webkit-font-smoothing: antialiased; min-height: 100vh;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(160deg, #143D18 0%, #1B5E20 35%, #2E7D32 65%, #1B5E20 100%);
+      color: white; padding: 28px 20px 24px; text-align: center; position: relative; overflow: hidden;
+    }
+    .hero::before { content: ''; position: absolute; top: -40%; right: -20%; width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%); border-radius: 50%; }
+    .hero-inner { position: relative; z-index: 1; max-width: 520px; margin: 0 auto; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+    .brand .dot { color: #C8A84B; }
+    .brand-icon { width: 36px; height: 36px; border-radius: 9px; }
+    .brand-icon svg { width: 36px; height: 36px; }
+
+    /* Restaurant card */
+    .container { max-width: 600px; margin: 0 auto; padding: 24px 20px; }
+    .card {
+      background: white; border-radius: 20px; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 0.5px solid #E4E0D8;
+    }
+    .photo {
+      width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #F0EDE6, #E4E0D8);
+      display: flex; align-items: center; justify-content: center; font-size: 80px;
+      background-size: cover; background-position: center;
+    }
+    .card-body { padding: 22px 22px 24px; }
+    .name { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; color: #141410; margin-bottom: 8px; line-height: 1.2; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; color: #555550; font-size: 14px; margin-bottom: 14px; }
+    .meta-sep { color: #D8D4CC; }
+
+    /* Confidence badge */
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 14px;
+      font-size: 13px; font-weight: 600; margin-bottom: 18px;
+    }
+    .badge.certified  { background: rgba(46,125,50,0.10);   color: #1B5E20; border: 1px solid rgba(46,125,50,0.20); }
+    .badge.community  { background: rgba(200,168,75,0.10);  color: #8B6B1B; border: 1px solid rgba(200,168,75,0.25); }
+    .badge.stated     { background: rgba(120,120,120,0.08); color: #555550; border: 1px solid rgba(120,120,120,0.18); }
+    .badge.unverified { background: rgba(120,120,120,0.05); color: #777770; border: 1px solid rgba(120,120,120,0.12); }
+    .badge .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+    .badge.certified  .dot { background: #2E7D32; }
+    .badge.community  .dot { background: #C8A84B; }
+    .badge.stated     .dot { background: #B8B4AA; }
+    .badge.unverified .dot { background: #D8D4CC; }
+
+    .address { color: #555550; font-size: 14px; line-height: 1.5; margin-bottom: 6px; }
+
+    /* Description / "see more in app" */
+    .more-in-app {
+      margin-top: 16px; padding: 14px 16px; background: #F0EDE6; border-radius: 12px;
+      font-size: 13px; color: #555550; display: flex; align-items: center; gap: 10px;
+    }
+    .more-in-app strong { color: #1B5E20; }
+
+    /* Install CTA section */
+    .install {
+      max-width: 600px; margin: 0 auto; padding: 8px 20px 40px; text-align: center;
+    }
+    .install h2 {
+      font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: #141410; margin: 24px 0 6px;
+    }
+    .install p { color: #555550; font-size: 14px; margin-bottom: 18px; }
+    .badges { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .badges a { display: inline-block; transition: transform 0.15s ease; }
+    .badges a:hover { transform: scale(1.04); }
+    .badges img { height: 50px; border-radius: 9px; }
+
+    /* Open in app button (deep-link trigger) */
+    .open-in-app {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 18px;
+      padding: 12px 22px; border-radius: 28px;
+      background: #1B5E20; color: white; text-decoration: none;
+      font-size: 15px; font-weight: 600; transition: background 0.15s ease;
+    }
+    .open-in-app:hover { background: #143D18; }
+    .open-in-app .arrow { font-size: 16px; }
+
+    /* Why Halalz strip */
+    .why {
+      max-width: 600px; margin: 0 auto; padding: 28px 20px 36px;
+      border-top: 0.5px solid #D8D4CC;
+    }
+    .why h3 { font-size: 14px; font-weight: 600; color: #555550; text-transform: uppercase; letter-spacing: 0.08em; text-align: center; margin-bottom: 16px; }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .why-card { text-align: center; padding: 14px 8px; background: white; border-radius: 12px; border: 0.5px solid #E4E0D8; }
+    .why-num { font-size: 22px; font-weight: 800; color: #2E7D32; line-height: 1; }
+    .why-lbl { font-size: 11px; color: #555550; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+
+    /* Loading / error states */
+    .loading, .error { text-align: center; padding: 60px 20px; color: #555550; }
+    .loading .spinner {
+      width: 32px; height: 32px; border: 3px solid #E4E0D8; border-top-color: #2E7D32;
+      border-radius: 50%; margin: 0 auto 16px; animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Footer */
+    footer {
+      text-align: center; padding: 14px 20px 26px; font-size: 12px; color: #A0A09A;
+      border-top: 0.5px solid #D8D4CC;
+    }
+    footer a { color: #555550; text-decoration: none; margin: 0 12px; }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="hero-inner">
+      <a href="/" style="color: white; text-decoration: none;">
+        <div class="brand">
+          <span class="brand-icon">
+            <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+              <rect width="80" height="80" rx="20" fill="#1B5E20"/>
+              <text x="40" y="49" text-anchor="middle" font-family="DM Sans, system-ui, sans-serif" font-weight="800" font-size="36" fill="white">H</text>
+              <rect x="20" y="57" width="40" height="5" rx="2.5" fill="#C8A84B"/>
+            </svg>
+          </span>
+          Halalz<span class="dot">.</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="content">
+      <div class="loading">
+        <div class="spinner"></div>
+        Loading restaurant…
+      </div>
+    </div>
+  </div>
+
+  <div class="install" id="install">
+    <h2>Get the full experience in the app</h2>
+    <p>Photos, hours, reviews, prayer-aware planning, and 2,700+ more spots.</p>
+    <div class="badges">
+      <a href="https://apps.apple.com/us/app/halalz-halal-food-finder/id6761310231">
+        <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store">
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=app.halalz&hl=en_US">
+        <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play">
+      </a>
+    </div>
+    <a class="open-in-app" id="openInApp" href="#">Already installed? Open in app <span class="arrow">→</span></a>
+  </div>
+
+  <div class="why">
+    <h3>The trusted halal map</h3>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-num">2,700+</div><div class="why-lbl">Restaurants</div></div>
+      <div class="why-card"><div class="why-num">30+</div><div class="why-lbl">States</div></div>
+      <div class="why-card"><div class="why-num">🟢🟡⚪</div><div class="why-lbl">Trust Tiers</div></div>
+    </div>
+  </div>
+
+  <footer>
+    <a href="/">Halalz home</a>
+    <a href="/privacy">Privacy</a>
+    <a href="mailto:support@halalz.app">Support</a>
+  </footer>
+
+  <script>
+    (function() {
+      // Public anon key — same one the iOS/Android app uses, safe to expose.
+      var SUPABASE_URL = 'https://api.halalz.app';
+      var SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZrY2F6emN2bWdvZXhmaWVrcmxxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5NTg3NjMsImV4cCI6MjA4ODUzNDc2M30.hkt8FN8BbSb8HnhCiMb2qhlGPWuoaTkHSVrm216Epyk';
+
+      var CONFIDENCE = {
+        certified:  { label: 'Certified',           sub: 'Official halal certification' },
+        community:  { label: 'Community Verified',  sub: 'Voted by the ummah' },
+        stated:     { label: 'Self-Stated',         sub: 'Restaurant says so' },
+        unverified: { label: 'Unverified',          sub: 'Needs community input' }
+      };
+
+      // Extract restaurant ID from URL path: /restaurant/<uuid>
+      var path = window.location.pathname || '';
+      var match = path.match(/\/restaurant\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i);
+      var id = match ? match[1] : null;
+
+      var content = document.getElementById('content');
+      var openBtn = document.getElementById('openInApp');
+
+      if (!id) {
+        content.innerHTML = '<div class="error">Couldn\'t find that restaurant. Open the Halalz app to browse 2,700+ halal spots.</div>';
+        openBtn.href = 'halalz://';
+        return;
+      }
+
+      // Wire the "Open in app" button to trigger deep link
+      openBtn.href = 'halalz://restaurant/' + id;
+
+      // Fetch restaurant from Supabase
+      fetch(SUPABASE_URL + '/rest/v1/restaurants?select=name,cuisine,address,confidence,photo_url,emoji,google_rating,price_range&id=eq.' + encodeURIComponent(id), {
+        headers: { 'apikey': SUPABASE_ANON, 'Authorization': 'Bearer ' + SUPABASE_ANON }
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var r = (data && data[0]) || null;
+        if (!r) {
+          content.innerHTML = '<div class="error">Restaurant not found. <a href="/" style="color: #2E7D32;">Browse Halalz</a></div>';
+          return;
+        }
+
+        // Update page title with restaurant name
+        document.title = r.name + ' — Halalz';
+        var metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) {
+          metaDesc.setAttribute('content', r.name + ' on Halalz — ' + (CONFIDENCE[r.confidence] || CONFIDENCE.unverified).label + ' halal. ' + (r.cuisine || 'Halal food') + (r.address ? ', ' + r.address : '') + '.');
+        }
+
+        var conf = CONFIDENCE[r.confidence] || CONFIDENCE.unverified;
+        var photoHtml = r.photo_url
+          ? '<div class="photo" style="background-image: url(' + JSON.stringify(r.photo_url).replace(/"/g, '&quot;') + ');"></div>'
+          : '<div class="photo">' + (r.emoji || '🍽') + '</div>';
+
+        var metaBits = [];
+        if (r.cuisine) metaBits.push(r.cuisine);
+        if (r.price_range) metaBits.push(r.price_range);
+        if (r.google_rating) metaBits.push('★ ' + Number(r.google_rating).toFixed(1));
+        var metaHtml = metaBits.length
+          ? '<div class="meta">' + metaBits.map(function(b, i) { return (i > 0 ? '<span class="meta-sep">·</span>' : '') + '<span>' + escapeHtml(b) + '</span>'; }).join('') + '</div>'
+          : '';
+
+        content.innerHTML =
+          '<div class="card">' +
+            photoHtml +
+            '<div class="card-body">' +
+              '<div class="name">' + escapeHtml(r.name) + '</div>' +
+              metaHtml +
+              '<div class="badge ' + r.confidence + '"><span class="dot"></span>' + conf.label + '</div>' +
+              (r.address ? '<div class="address">📍 ' + escapeHtml(r.address) + '</div>' : '') +
+              '<div class="more-in-app">' +
+                '<strong>In the app:</strong> hours, photos, reviews, directions, and the confidence story behind this rating.' +
+              '</div>' +
+            '</div>' +
+          '</div>';
+
+        // Inject structured data for SEO (LocalBusiness/Restaurant schema)
+        var ld = {
+          '@context': 'https://schema.org',
+          '@type': 'Restaurant',
+          'name': r.name,
+          'address': r.address || undefined,
+          'servesCuisine': r.cuisine || undefined,
+          'priceRange': r.price_range || undefined,
+          'aggregateRating': r.google_rating ? {
+            '@type': 'AggregateRating', 'ratingValue': r.google_rating, 'reviewCount': '0'
+          } : undefined,
+          'url': window.location.href
+        };
+        var script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.textContent = JSON.stringify(ld);
+        document.head.appendChild(script);
+      })
+      .catch(function(e) {
+        content.innerHTML = '<div class="error">Couldn\'t load this restaurant. Open the Halalz app to browse 2,700+ halal spots.</div>';
+      });
+
+      function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, function(c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
